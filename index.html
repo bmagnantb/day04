@@ -2,11 +2,60 @@
 <html style="opacity: 0;">
 
 <head>
-    <title></title>
+  <title></title>
+  <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
-    <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/app.js"></script>
+
+  <div>
+    <input type="checkbox" id="toggle" name="toggle">
+    <label for="toggle" class="fa fa-rotate-left arrow-corner"></label>
+    <div class="tshirt-img">
+    	<div class="h1-container">
+      	<h1>TSHIRT</h1>
+      </div>
+    </div>
+    <div class="tshirt-options">
+      <div class="left-border">
+      	<span class="fa fa-exchange">
+      </div>
+      <div>
+      	<span class="fa fa-heart-o"></span>
+      </div>
+      <div class="tshirt-size">&nbsp;
+      		<div class="tshirt-size-select">
+      			<input type="radio" name="tshirt-size" class="radio-popup" id="size-sm">
+      			<label for="size-sm" class="label-popup">S</label>
+      			<input type="radio" name="tshirt-size" class="radio-popup" id="size-med">
+      			<label for="size-med" class="label-popup">M</label>
+      			<input type="radio" name="tshirt-size" class="radio-popup" id="size-lrg">
+      			<label for="size-lrg" class="label-popup">L</label>
+      			<input type="radio" name="tshirt-size" class="radio-popup" id="size-xl" checked>
+      			<label for="size-xl" class="label-popup">XL</label>
+      		</div>
+      		<div class="tshirt-size-arrow"></div>
+      </div>
+      <div class="tshirt-color">C
+      	<div class="tshirt-color-select">
+      		<div class="tshirt-color-select-options"></div>
+      		<div class="tshirt-color-select-arrow"></div>
+      	</div>
+      </div>
+      <div>
+      	<span class="fa fa-shopping-cart"></span>
+      </div>
+    </div>
+    <div>
+      <span class="tshirt-name">Save my trees</span>
+      <span class="tshirt-price">$29</span>
+    </div>
+  </div>
+
+
+
+
+  <script type="text/javascript" src="./bower_components/Loader/loader.js" id="loaderjs" data-app="./js/app.js"></script>
 </body>
 
 </html>
