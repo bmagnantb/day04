@@ -1,16 +1,14 @@
 @import "../bower_components/normalize-scss/_normalize.scss";
 @import "../bower_components/typeplate-starter-kit/css/_typeplate.scss";
-
 @mixin gridify($col, $width, $gutter: 2) {
-    @media only screen and (min-width: #{$width}#{"px"}){
-        .grid-#{$col}-#{$width} {
+    @media only screen and (min-width:#{$width}#{"px"}) {
+        .grid-#{$col}-#{$width}{
             & > * {
                 width: #{(100 / $col) - $gutter}#{"%"};
-            }
+               }
         }
     }
 }
-
 /**
  * BOX-SIZING
  */
@@ -18,7 +16,6 @@
 *, *:before, *:after {
     box-sizing: border-box;
 }
-
 /**
  * GRIDS
  */
@@ -29,7 +26,6 @@
     font-size: 0;
     text-align: justify;
     position: relative;
-
     & > * {
         font-size: medium;
         text-align: left;
@@ -37,7 +33,6 @@
         width: 100%;
         vertical-align: top;
     }
-
     &:after {
         display: inline-block;
         width: 100%;
@@ -45,19 +40,18 @@
         font-size: medium;
     }
 }
-
 @include gridify(2, 400);
 @include gridify(4, 600);
-
-
 $background-color: #fff;
 $color: #88bbff;
 $border: 1px solid $color;
 $drop-arrow-size: .6em;
 $popup-overlap: 20%;
-
-
-
+$color-palette-size: 1.2em;
+$option-box-padding: .5em;
+$color-option-extra-padding: 1.5em - $color-palette-size;
+$color-palette-horiz-spacing: 2.5%;
+$color-palette-vert-spacing: 4%;
 /**
  * GENERAL
  */
@@ -66,178 +60,194 @@ body {
     transition: opacity .25s ease;
     height: 100vh;
     font-family: Helvetica, sans-serif;
+    & > div {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        min-width: 15em;
+        color: $color;
+    }
 }
-
-body > div {
-	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	max-width: 15em;
-	color: $color;
-}
-
 .arrow-corner {
-	position: absolute;
-	top: 0;
-	right: 0;
-	border-left: $border;
-	border-bottom: $border;
-	text-align: center;
-	height: 1.5em;
-	padding: .25em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: $border;
+    border-bottom: $border;
+    text-align: center;
+    height: 1.5em;
+    padding: .25em;
+    z-index: 100;
 }
-
 #toggle {
-	display: none;
+    display: none;
+    &:checked ~ .tshirt-img .h1-container {
+    	transform: rotateY(180deg);
+    }
 }
-
 .tshirt-img {
-	height: 15em;
-	border: $border;
-	text-align: center;
-	background: $background-color;
+    height: 15em;
+    border: $border;
+    text-align: center;
+    background: $background-color;
+    perspective: 10em;
 }
-
 .h1-container {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform .5s ease;
+    transform-style: preserve-3d;
+    h1 {
+        position: absolute;
+        margin: 0 auto;
+        width: 100%;
+        backface-visibility: hidden;
+        &:nth-child(2) {
+            transform: rotateY(180deg);
+        }
+        &:last-child {
+            visibility: hidden;
+            position: relative;
+        }
+    }
 }
-
-.h1-container > h1 {
-	transition: transform 1s ease;
-}
-
-#toggle:checked ~ .tshirt-img h1 {
-	transform: rotateY(180deg);
-}
-
 .tshirt-options {
-	font-size: 0px;
-	text-align: center;
-	background: $background-color;
+    font-size: 0px;
+    text-align: center;
+    background: $background-color;
+    & > div {
+        width: 20%;
+        display: inline-block;
+        font-size: 1rem;
+        border-right: $border;
+        border-bottom: $border;
+        transition: color .2ss ease;
+        transition: background-color .2s ease;
+        padding: $option-box-padding 0;
+        &:hover {
+            background-color: $color;
+            color: $background-color;
+        }
+        &:first-child {
+            border-left: $border;
+        }
+    }
 }
-
-.tshirt-options > div {
-	width: 20%;
-	display: inline-block;
-	font-size: 1rem;
-	border-right: $border;
-	border-bottom: $border;
-	transition: color .2ss ease;
-	transition: background-color .2s ease;
-}
-
-.tshirt-options > div:hover {
-	background-color: $color;
-	color: $background-color;
-}
-
-div.left-border{
-	border-left: $border;
-}
-
 .tshirt-size, .tshirt-color {
-	position: relative;
+    position: relative;
+    padding: 0 .5em;
 }
-
-.tshirt-size-select, {
-	visibility: hidden;
-	position: absolute;
-	width: 100+$popup-overlap;
-	left: -$popup-overlap/2;
-	background-color: $background-color;
-	bottom: 100%;
-	border: $border;
+.tshirt-size-select, .tshirt-color-select {
+    visibility: hidden;
+    position: absolute;
+    width: 100+$popup-overlap;
+    left: -$popup-overlap/2;
+    background-color: $background-color;
+    bottom: 100%;
+    border: $border;
 }
-
-.tshirt-size:hover .tshirt-size-select, .tshirt-size:hover .tshirt-size-arrow {
-	visibility: visible;
+.tshirt-size-arrow, .tshirt-color-arrow {
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%) translateY($drop-arrow-size/2) rotate(45deg);
+    background-color: $background-color;
+    height: $drop-arrow-size;
+    width: $drop-arrow-size;
+    border-right: $border;
+    border-bottom: $border;
 }
-
-.tshirt-size-arrow {
-	visibility: hidden;
-	position: absolute;
-	left: 50%;
-	bottom: 100%;
-	transform: translateX(-50%) translateY($drop-arrow-size/2) rotate(45deg);
-	background-color: $background-color;
-	height: $drop-arrow-size;
-	width: $drop-arrow-size;
-	border-right: $border;
-	border-bottom: $border;
+.tshirt-size:hover {
+    .tshirt-size-select, .tshirt-size-arrow {
+        visibility: visible;
+    }
+    .radio-popup:checked + .label-popup > .size-selected {
+        visibility: visible;
+    }
+    .label-popup {
+        position: relative;
+        display: block;
+        margin: 0;
+        visibility: visible;
+        padding-top: 0;
+    }
 }
-
-
-
-
-.tshirt-color-select {
-	visibility: hidden;
-	position: absolute;
-	width: 100+$popup-overlap;
-	bottom: 100%;
-	left: -$popup-overlap/2;
-	border: $border;
-	background: $background-color;
+.size-selected {
+    visibility: hidden;
 }
-
-.tshirt-color-select-options {
-	width: 100%;
-	background-color: $background-color;
-	transform: translateY($drop-arrow-size);
-	border: 0;
+.tshirt-color:hover {
+    .tshirt-color-select, .tshirt-color-arrow {
+        visibility: visible;
+    }
+    .tshirt-color-select {
+        font-size: 0px;
+        text-align: center;
+        padding: $color-palette-vert-spacing $color-palette-horiz-spacing;
+        &:after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            font-size: 1rem;
+        }
+    }
+    .label-popup {
+        width: 40%;
+        display: inline-block;
+        font-size: 1rem;
+        margin: $color-palette-vert-spacing $color-palette-horiz-spacing;
+        transform: none;
+        vertical-align: top;
+        position: relative;
+        visibility: visible;
+        padding-top: 0;
+    }
+    .radio-popup:checked + .label-popup > .color-label {
+        border: 1px solid #000;
+    }
 }
-
-.tshirt-color:hover .tshirt-color-select {
-	visibility: visible;
-}
-
-.tshirt-color-select-arrow {
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%) translateY($drop-arrow-size/2) rotate(45deg);
-	background-color: $background-color;
-	height: $drop-arrow-size;
-	width: $drop-arrow-size;
-	border-right: $border;
-	border-bottom: $border;
-}
-
 .radio-popup {
-	display: none;
+    display: none;
+    &:checked + .label-popup {
+        visibility: visible;
+    }
 }
-
 .label-popup {
-	color: $color;
-	position: absolute;
-	width: 100%;
-	top: 0;
-	left: 0;
-	visibility: hidden;
+    color: $color;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    margin: $option-box-padding 0;
 }
-
-.radio-popup:checked + .label-popup {
-	visibility: visible;
+.tshirt-color-select > .label-popup {
+    padding-top: $color-option-extra-padding;
 }
-
-.tshirt-size:hover .label-popup {
-	position: relative;
-	display: block;
-	margin: 0;
-	visibility: visible;
+.color-label {
+    height: $color-palette-size;
+    width: $color-palette-size;
+    margin: 0 auto;
 }
-
-
-
-
-
+#color-gr + label > div {
+    background-color: hsla(139, 100%, 34%, 1);
+}
+#color-bl + label > div {
+    background-color: $color;
+}
+#color-yl + label > div {
+    background-color: hsla(53, 100%, 61%, 1);
+}
+#color-rd + label > div {
+    background-color: hsla(345, 69%, 51%, 1);
+}
 .tshirt-name {
-	font-weight: 200;
+    font-weight: 200;
 }
-
 .tshirt-price {
-	float: right;
-	font-weight: 600;
+    float: right;
+    font-weight: 600;
 }
-

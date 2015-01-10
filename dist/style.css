@@ -845,14 +845,14 @@ body {
   transition: opacity .25s ease;
   height: 100vh;
   font-family: Helvetica, sans-serif; }
-
-body > div {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 15em;
-  color: #88bbff; }
+  body > div {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    min-width: 15em;
+    color: #88bbff; }
 
 .arrow-corner {
   position: absolute;
@@ -862,53 +862,62 @@ body > div {
   border-bottom: 1px solid #88bbff;
   text-align: center;
   height: 1.5em;
-  padding: .25em; }
+  padding: .25em;
+  z-index: 100; }
 
 #toggle {
   display: none; }
+  #toggle:checked ~ .tshirt-img .h1-container {
+    transform: rotateY(180deg); }
 
 .tshirt-img {
   height: 15em;
   border: 1px solid #88bbff;
   text-align: center;
-  background: #fff; }
+  background: #fff;
+  perspective: 10em; }
 
 .h1-container {
   position: relative;
   top: 50%;
-  transform: translateY(-50%); }
-
-.h1-container > h1 {
-  transition: transform 1s ease; }
-
-#toggle:checked ~ .tshirt-img h1 {
-  transform: rotateY(180deg); }
+  transform: translateY(-50%);
+  transition: transform .5s ease;
+  transform-style: preserve-3d; }
+  .h1-container h1 {
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    backface-visibility: hidden; }
+    .h1-container h1:nth-child(2) {
+      transform: rotateY(180deg); }
+    .h1-container h1:last-child {
+      visibility: hidden;
+      position: relative; }
 
 .tshirt-options {
   font-size: 0px;
   text-align: center;
   background: #fff; }
-
-.tshirt-options > div {
-  width: 20%;
-  display: inline-block;
-  font-size: 1rem;
-  border-right: 1px solid #88bbff;
-  border-bottom: 1px solid #88bbff;
-  transition: color .2ss ease;
-  transition: background-color .2s ease; }
-
-.tshirt-options > div:hover {
-  background-color: #88bbff;
-  color: #fff; }
-
-div.left-border {
-  border-left: 1px solid #88bbff; }
+  .tshirt-options > div {
+    width: 20%;
+    display: inline-block;
+    font-size: 1rem;
+    border-right: 1px solid #88bbff;
+    border-bottom: 1px solid #88bbff;
+    transition: color .2ss ease;
+    transition: background-color .2s ease;
+    padding: 0.5em 0; }
+    .tshirt-options > div:hover {
+      background-color: #88bbff;
+      color: #fff; }
+    .tshirt-options > div:first-child {
+      border-left: 1px solid #88bbff; }
 
 .tshirt-size, .tshirt-color {
-  position: relative; }
+  position: relative;
+  padding: 0 .5em; }
 
-.tshirt-size-select {
+.tshirt-size-select, .tshirt-color-select {
   visibility: hidden;
   position: absolute;
   width: 120%;
@@ -917,51 +926,60 @@ div.left-border {
   bottom: 100%;
   border: 1px solid #88bbff; }
 
+.tshirt-size-arrow, .tshirt-color-arrow {
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%) translateY(0.3em) rotate(45deg);
+  background-color: #fff;
+  height: 0.6em;
+  width: 0.6em;
+  border-right: 1px solid #88bbff;
+  border-bottom: 1px solid #88bbff; }
+
 .tshirt-size:hover .tshirt-size-select, .tshirt-size:hover .tshirt-size-arrow {
   visibility: visible; }
-
-.tshirt-size-arrow {
-  visibility: hidden;
-  position: absolute;
-  left: 50%;
-  bottom: 100%;
-  transform: translateX(-50%) translateY(0.3em) rotate(45deg);
-  background-color: #fff;
-  height: 0.6em;
-  width: 0.6em;
-  border-right: 1px solid #88bbff;
-  border-bottom: 1px solid #88bbff; }
-
-.tshirt-color-select {
-  visibility: hidden;
-  position: absolute;
-  width: 120%;
-  bottom: 100%;
-  left: -10%;
-  border: 1px solid #88bbff;
-  background: #fff; }
-
-.tshirt-color-select-options {
-  width: 100%;
-  background-color: #fff;
-  transform: translateY(0.6em);
-  border: 0; }
-
-.tshirt-color:hover .tshirt-color-select {
+.tshirt-size:hover .radio-popup:checked + .label-popup > .size-selected {
   visibility: visible; }
-
-.tshirt-color-select-arrow {
+.tshirt-size:hover .label-popup {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%) translateY(0.3em) rotate(45deg);
-  background-color: #fff;
-  height: 0.6em;
-  width: 0.6em;
-  border-right: 1px solid #88bbff;
-  border-bottom: 1px solid #88bbff; }
+  display: block;
+  margin: 0;
+  visibility: visible;
+  padding-top: 0; }
+
+.size-selected {
+  visibility: hidden; }
+
+.tshirt-color:hover .tshirt-color-select, .tshirt-color:hover .tshirt-color-arrow {
+  visibility: visible; }
+.tshirt-color:hover .tshirt-color-select {
+  font-size: 0px;
+  text-align: center;
+  padding: 4% 2.5%; }
+  .tshirt-color:hover .tshirt-color-select:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    font-size: 1rem; }
+.tshirt-color:hover .label-popup {
+  width: 40%;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 4% 2.5%;
+  transform: none;
+  vertical-align: top;
+  position: relative;
+  visibility: visible;
+  padding-top: 0; }
+.tshirt-color:hover .radio-popup:checked + .label-popup > .color-label {
+  border: 1px solid #000; }
 
 .radio-popup {
   display: none; }
+  .radio-popup:checked + .label-popup {
+    visibility: visible; }
 
 .label-popup {
   color: #88bbff;
@@ -969,16 +987,28 @@ div.left-border {
   width: 100%;
   top: 0;
   left: 0;
-  visibility: hidden; }
+  visibility: hidden;
+  margin: 0.5em 0; }
 
-.radio-popup:checked + .label-popup {
-  visibility: visible; }
+.tshirt-color-select > .label-popup {
+  padding-top: 0.3em; }
 
-.tshirt-size:hover .label-popup {
-  position: relative;
-  display: block;
-  margin: 0;
-  visibility: visible; }
+.color-label {
+  height: 1.2em;
+  width: 1.2em;
+  margin: 0 auto; }
+
+#color-gr + label > div {
+  background-color: #00ad37; }
+
+#color-bl + label > div {
+  background-color: #88bbff; }
+
+#color-yl + label > div {
+  background-color: #ffe838; }
+
+#color-rd + label > div {
+  background-color: #d82c57; }
 
 .tshirt-name {
   font-weight: 200; }
