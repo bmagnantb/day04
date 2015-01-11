@@ -838,6 +838,36 @@ abbr[title]:hover {
   .grid-4-600 > * {
     width: 23%; } }
 
+@-webkit-keyframes slide-select {
+  0% {
+    opacity: 0;
+    transform: scale(.9);
+    bottom: 120%; }
+
+  25% {
+    opacity: .5; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    bottom: 100%;
+    transform: scale(1); } }
+
+@-webkit-keyframes slide-arrow {
+  0% {
+    opacity: 0;
+    bottom: 120%; }
+
+  25% {
+    opacity: .5; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    bottom: 100%; } }
+
 /**
  * GENERAL
  */
@@ -851,7 +881,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
-    min-width: 15em;
+    min-width: 20em;
+    max-width: 25em;
     color: #88bbff; }
 
 .arrow-corner {
@@ -940,12 +971,18 @@ body {
 
 .tshirt-size:hover .tshirt-size-select, .tshirt-size:hover .tshirt-size-arrow {
   visibility: visible; }
+.tshirt-size:hover .tshirt-size-select {
+  -webkit-animation: slide-select .5s ease; }
+.tshirt-size:hover .tshirt-size-arrow {
+  -webkit-animation: slide-arrow .5s ease; }
+.tshirt-size:hover .tshirt-size-select {
+  padding: .25em 0 0; }
 .tshirt-size:hover .radio-popup:checked + .label-popup > .size-selected {
   visibility: visible; }
 .tshirt-size:hover .label-popup {
   position: relative;
   display: block;
-  margin: 0;
+  margin: 0 0 .25em;
   visibility: visible;
   padding-top: 0; }
 
@@ -954,6 +991,10 @@ body {
 
 .tshirt-color:hover .tshirt-color-select, .tshirt-color:hover .tshirt-color-arrow {
   visibility: visible; }
+.tshirt-color:hover .tshirt-color-select {
+  -webkit-animation: slide-select .5s ease; }
+.tshirt-color:hover .tshirt-color-arrow {
+  -webkit-animation: slide-arrow .5s ease; }
 .tshirt-color:hover .tshirt-color-select {
   font-size: 0px;
   text-align: center;
@@ -967,14 +1008,19 @@ body {
   width: 40%;
   display: inline-block;
   font-size: 1rem;
-  margin: 4% 2.5%;
+  margin: 4% 2.5% 8%;
   transform: none;
   vertical-align: top;
   position: relative;
   visibility: visible;
   padding-top: 0; }
 .tshirt-color:hover .radio-popup:checked + .label-popup > .color-label {
-  border: 1px solid #000; }
+  border: 2px solid #666;
+  margin-top: 1px; }
+.tshirt-color:hover .color-label {
+  padding-top: 80%;
+  width: 80%;
+  margin-top: 10%; }
 
 .radio-popup {
   display: none; }
@@ -991,11 +1037,11 @@ body {
   margin: 0.5em 0; }
 
 .tshirt-color-select > .label-popup {
-  padding-top: 0.3em; }
+  padding-top: 0.2em; }
 
 .color-label {
-  height: 1.2em;
-  width: 1.2em;
+  width: 1.4em;
+  height: 1.4em;
   margin: 0 auto; }
 
 #color-gr + label > div {

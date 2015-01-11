@@ -47,11 +47,45 @@ $color: #88bbff;
 $border: 1px solid $color;
 $drop-arrow-size: .6em;
 $popup-overlap: 20%;
-$color-palette-size: 1.2em;
 $option-box-padding: .5em;
-$color-option-extra-padding: 1.5em - $color-palette-size;
+$color-palette-size: 1.4em;
+$color-palette-extra-padding: 1.6 - $color-palette-size;
 $color-palette-horiz-spacing: 2.5%;
 $color-palette-vert-spacing: 4%;
+
+@-webkit-keyframes slide-select {
+	0% {
+		opacity: 0;
+		transform: scale(.9);
+		bottom: 120%;
+	}
+	25% {
+		opacity: .5;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		bottom: 100%;
+		transform: scale(1);
+	}
+}
+
+@-webkit-keyframes slide-arrow {
+	0% {
+		opacity: 0;
+		bottom: 120%;
+	}
+	25% {
+		opacity: .5;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		bottom: 100%;
+	}
+}
 /**
  * GENERAL
  */
@@ -66,7 +100,8 @@ body {
         left: 50%;
         transform: translate(-50%, -50%);
         width: 50%;
-        min-width: 15em;
+        min-width: 20em;
+        max-width: 25em;
         color: $color;
     }
 }
@@ -165,13 +200,22 @@ body {
     .tshirt-size-select, .tshirt-size-arrow {
         visibility: visible;
     }
+    .tshirt-size-select {
+    	-webkit-animation: slide-select .5s ease;
+    }
+    .tshirt-size-arrow {
+    	-webkit-animation: slide-arrow .5s ease;
+    }
+    .tshirt-size-select {
+    	padding: .25em 0 0;
+    }
     .radio-popup:checked + .label-popup > .size-selected {
         visibility: visible;
     }
     .label-popup {
         position: relative;
         display: block;
-        margin: 0;
+        margin: 0 0 .25em;
         visibility: visible;
         padding-top: 0;
     }
@@ -182,6 +226,12 @@ body {
 .tshirt-color:hover {
     .tshirt-color-select, .tshirt-color-arrow {
         visibility: visible;
+    }
+    .tshirt-color-select {
+    	-webkit-animation: slide-select .5s ease;
+    }
+    .tshirt-color-arrow {
+    	-webkit-animation: slide-arrow .5s ease;
     }
     .tshirt-color-select {
         font-size: 0px;
@@ -198,7 +248,7 @@ body {
         width: 40%;
         display: inline-block;
         font-size: 1rem;
-        margin: $color-palette-vert-spacing $color-palette-horiz-spacing;
+        margin: $color-palette-vert-spacing $color-palette-horiz-spacing $color-palette-vert-spacing*2;
         transform: none;
         vertical-align: top;
         position: relative;
@@ -206,7 +256,13 @@ body {
         padding-top: 0;
     }
     .radio-popup:checked + .label-popup > .color-label {
-        border: 1px solid #000;
+        border: 2px solid #666;
+        margin-top: 1px;
+    }
+    .color-label {
+    	padding-top: 80%;
+    width: 80%;
+    margin-top: 10%;
     }
 }
 .radio-popup {
@@ -225,11 +281,11 @@ body {
     margin: $option-box-padding 0;
 }
 .tshirt-color-select > .label-popup {
-    padding-top: $color-option-extra-padding;
+    padding-top: $color-palette-extra-padding;
 }
 .color-label {
-    height: $color-palette-size;
     width: $color-palette-size;
+    height: $color-palette-size;
     margin: 0 auto;
 }
 #color-gr + label > div {
